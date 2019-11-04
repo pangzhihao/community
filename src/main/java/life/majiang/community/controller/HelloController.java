@@ -17,17 +17,17 @@ public class HelloController {
     private UserMapper userMapper;
     @GetMapping("/")
     public String index(HttpServletRequest request){
-        Cookie[] cookies = request.getCookies();// 我寻思这里要加个是否null的判断 否则会空指针异常
-        for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                String token = cookie.getValue();
-                User user = userMapper.findByToken(token);
-                if (user!=null) {
-                request.getSession().setAttribute("user",user);
-                }
-                break;
-            }
-        }
+//        Cookie[] cookies = request.getCookies();// 我寻思这里要加个是否null的判断 否则会空指针异常
+//        for (Cookie cookie : cookies) {
+//                if (cookie.getName().equals("token")) {
+//                String token = cookie.getValue();
+//                User user = userMapper.findByToken(token);
+//                if (user!=null) {
+//                request.getSession().setAttribute("user",user);
+//                }
+//                break;
+//            }
+//        }
         return "index";
     }
 }
