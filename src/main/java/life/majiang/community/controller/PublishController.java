@@ -32,17 +32,17 @@ public class PublishController {
             Model model)
     {
         User user = null;
-        Cookie[] cookies = request.getCookies();// 我寻思这里要加个是否null的判断 否则会空指针异常
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                String token = cookie.getValue();
-                user=userMapper.findByToken(token);
-                if (user!=null) {
-                    request.getSession().setAttribute("user",user);
-                }
-                break;
-            }
-        }
+//        Cookie[] cookies = request.getCookies();// 我寻思这里要加个是否null的判断 否则会空指针异常
+//        for (Cookie cookie : cookies) {
+//            if (cookie.getName().equals("token")) {
+//                String token = cookie.getValue();
+//                user=userMapper.findByToken(token);
+//                if (user!=null) {
+//                    request.getSession().setAttribute("user",user);
+//                }
+//                break;
+//            }
+//        }
         if (user==null)
         {
             model.addAttribute("error","用户未登录");
