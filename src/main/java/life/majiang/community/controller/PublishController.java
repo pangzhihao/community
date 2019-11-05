@@ -31,18 +31,37 @@ public class PublishController {
             @RequestParam("tag") String tag, HttpServletRequest request,
             Model model)
     {
+        model.addAttribute("title",title);
+        model.addAttribute("description",description);
+        model.addAttribute("tag",tag);
+        if (title==null||title==""){
+            model.addAttribute("error","标题不能为空");
+            return "publish";
+        }
+        if (description==null||description==""){
+            model.addAttribute("error","补充内容不能为空");
+            return "publish";
+        }
+        if (tag==null||tag==""){
+            model.addAttribute("error","标签不能为空");
+            return "publish";
+        }
         User user = null;
-//        Cookie[] cookies = request.getCookies();// 我寻思这里要加个是否null的判断 否则会空指针异常
-//        for (Cookie cookie : cookies) {
-//            if (cookie.getName().equals("token")) {
-//                String token = cookie.getValue();
-//                user=userMapper.findByToken(token);
-//                if (user!=null) {
-//                    request.getSession().setAttribute("user",user);
-//                }
-//                break;
-//            }
-//        }
+        Cookie[] cookies = request.getCookies();// 我寻思这里要加个是否null的判断 否则会空指针异常
+        if(cookies!=null){
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                String token = cookie.getValue();
+                user=userMapper.findByToken(token);
+                if (user!=null) {
+                    request.getSession().setAttribute("user",user);
+                }
+                break;
+            }
+        }
+        }else {
+            System.out.println("publish/cookie为空");
+        }
         if (user==null)
         {
             model.addAttribute("error","用户未登录");
